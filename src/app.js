@@ -21,6 +21,12 @@ app.post("/orders", (request, response) => {
   return response.status(200).send(orders);
 });
 
+app.post("/policies", (request, response) => {
+  const { body } = request;
+  const policies = new PolicyModel(body);
+  policies.save();
+  return response.status(200).send(policies);
+});
 app.get("/wishlists/:id", async (req, res) => {
   const { id } = req.params;
   const wishlist = await WishlistModel.findById(id);
