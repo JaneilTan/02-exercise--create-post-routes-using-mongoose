@@ -14,6 +14,13 @@ app.post("/wishlists", (request, response) => {
   return response.status(200).send(wishlist);
 });
 
+app.post("/orders", (request, response) => {
+  const { body } = request;
+  const orders = new OrderModel(body);
+  orders.save();
+  return response.status(200).send(orders);
+});
+
 app.get("/wishlists/:id", async (req, res) => {
   const { id } = req.params;
   const wishlist = await WishlistModel.findById(id);
