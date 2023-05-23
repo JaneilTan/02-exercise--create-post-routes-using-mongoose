@@ -4,7 +4,15 @@ const WishlistModel = require("./models/WishlistModel");
 const OrderModel = require("./models/OrderModel");
 const PolicyModel = require("./models/PolicyModel");
 
+
 app.use(express.json());
+
+app.post("/wishlists", (request, response) => {
+  const { body } = request;
+  const wishlist = new WishlistModel(body);
+  wishlist.save();
+  return response.status(200).send(wishlist);
+});
 
 app.get("/wishlists/:id", async (req, res) => {
   const { id } = req.params;
@@ -23,5 +31,8 @@ app.get("/policies/:id", async (req, res) => {
   const order = await PolicyModel.findById(id);
   return res.status(200).send(order);
 });
+
+
+
 
 module.exports = app;
